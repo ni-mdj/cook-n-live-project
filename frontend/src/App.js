@@ -1,29 +1,83 @@
-import React from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
-
-function Home() {
-  return (
-    <div>
-      <h1>Cook&Live</h1>
-      <p>Bienvenue sur Cook&Live — ton site de cuisine.</p>
-    </div>
-  )
-}
-
-function NotFound() {
-  return <h2>Page non trouvée</h2>
-}
+// Note perso : App gère les pages du site, la navigation et petit état utilisateur pour savoir si quelqu'un est connecté.
+import React, { useEffect, useState } from 'react'
+import { Link, Route, Routes, useNavigate } from 'react-router-dom'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import RecipesList from './pages/RecipesList'
+import RecipeDetail from './pages/RecipeDetail'
+import NewRecipe from './pages/NewRecipe'
+import Live from './pages/Live'
+import Profile from './pages/Profile'
+import { setAuthToken } from './api'
 
 export default function App() {
+  const [user, setUser] = useState(null)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = localStorage.getItem('access')
+    const username = localStorage.getItem('username')
+    if (token && username) {
+      setAuthToken(token)
+      setUser({ username })
+    }
+  }, [])
+
+  const handleLogin = ({ username, access, refresh }) => {
+    localStorage.setItem('access', access)
+    localStorage.setItem('refresh', refresh)
+    localStorage.setItem('username', username)
+    setAuthToken(access)
+    setUser({ username })
+    navigate('/')
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('access')
+    localStorage.removeItem('refresh')
+    localStorage.removeItem('username')
+    setAuthToken(null)
+    setUser(null)
+    navigate('/')
+  }
+
   return (
     <div>
-      <nav>
-        <Link to='/'>Accueil</Link> | <Link to='/recipes'>Recettes</Link> | <Link to='/login'>Connexion</Link>
-      </nav>
-      <main>
+      <header className='simple-nav'>
+        <div className='simple-nav__left'>
+          <Link to='/' className='simple-nav__logo'>Cook&Live</Link>
+          <Link to='/recipes'>Recettes</Link>
+          <Link to='/live'>Live</Link>
+        </div>
+        <div className='simple-nav__right'>
+          {user ? (
+            <>
+              <span>Bonjour {user.username}</span>
+              <button type='button' onClick={handleLogout}>Se déconnecter</button>
+              <Link to='/profile'>Mon profil</Link>
+              <Link to='/recipes/new'>Ajouter une recette</Link>
+            </>
+          ) : (
+            <>
+              <Link to='/login'>Connexion</Link>
+              <Link to='/register'>Inscription</Link>
+            </>
+          )}
+        </div>
+      </header>
+
+      <main className='simple-container'>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='*' element={<NotFound />} />
+          <Route path='/' element={<Home user={user} />} />
+          <Route path='/login' element={<Login onLogin={handleLogin} />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/recipes' element={<RecipesList user={user} />} />
+          <Route path='/recipes/new' element={<NewRecipe user={user} />} />
+          <Route path='/recipes/:id' element={<RecipeDetail user={user} />} />
+          <Route path='/live' element={<Live />} />
+          <Route path='/profile' element={<Profile user={user} />} />
+          <Route path='*' element={<div>Page non trouvée</div>} />
         </Routes>
       </main>
     </div>

@@ -1,2 +1,168 @@
-body { font-family: Arial, Helvetica, sans-serif; margin: 16px; }
-nav a { margin-right: 8px; }
+/* Note perso : styles très simples pour donner un look propre sans me compliquer la vie. */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  color: #333;
+}
+
+a {
+  color: #c45a1a;
+}
+
+.simple-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.simple-nav__left,
+.simple-nav__right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.simple-nav__logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.simple-nav button {
+  padding: 6px 12px;
+}
+
+.simple-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+.simple-page {
+  background: #fff;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.simple-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.simple-form input,
+.simple-form textarea {
+  padding: 8px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+.simple-form button,
+button {
+  padding: 8px 14px;
+  border: 1px solid #c45a1a;
+  background: #c45a1a;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.simple-form button:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  cursor: default;
+}
+
+.small-button {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 1px solid #c45a1a;
+  border-radius: 4px;
+}
+
+.small-text {
+  font-size: 14px;
+  color: #666;
+}
+
+.warning {
+  background: #ffe0e0;
+  border: 1px solid #dd7777;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.success {
+  background: #e2f5e6;
+  border: 1px solid #7ec18d;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.recipe-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.recipe-card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  background: #fafafa;
+}
+
+.recipe-author {
+  font-size: 13px;
+  color: #777;
+}
+
+.simple-list {
+  padding-left: 18px;
+}
+
+.comment-list {
+  padding-left: 18px;
+}
+
+.recipe-text {
+  white-space: pre-wrap;
+  background: #fafafa;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.video-box iframe {
+  border: none;
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+.next-live {
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 4px;
+  background: #fafafa;
+}
+
+@media (max-width: 600px) {
+  .simple-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .simple-nav__left,
+  .simple-nav__right {
+    flex-wrap: wrap;
+  }
+}
