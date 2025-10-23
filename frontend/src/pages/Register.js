@@ -1,4 +1,4 @@
-// Note perso : page pour créer un compte afin de participer aux commentaires et recettes.
+// com : Je gere l'inscription (form -> back) pr commenter et poster rec.
 import React, { useState } from 'react'
 import API from '../api'
 import { useNavigate } from 'react-router-dom'

@@ -1,4 +1,4 @@
-// Note perso : petit fichier qui prépare axios pour parler au backend en local.
+// com : Je setup axios pr parler au back local en mode dev.
 import axios from 'axios'
 
 // J'utilise le port par défaut de Django (8000) pendant le dev.

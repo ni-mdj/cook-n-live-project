@@ -1,4 +1,4 @@
-// Note perso : point d'entrée React qui monte l'application et recharge le token stocké si besoin.
+// com : Je lance le root React, je plug le Router et je restaure le token stock.
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'

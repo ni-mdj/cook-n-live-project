@@ -1,4 +1,4 @@
-// Note perso : ce composant affiche le lecteur Twitch intégré pour le live du jeudi.
+// com : Je embed le player Twitch pr le live du jeudi.
 import React from 'react'
 
 export default function LiveEmbed({ channel = 'cooknlive' }){

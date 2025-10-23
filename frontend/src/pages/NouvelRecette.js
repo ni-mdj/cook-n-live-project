@@ -1,14 +1,15 @@
-// Note perso : formulaire simple pour publier une nouvelle recette quand je suis connectée.
+// com : Je fournis le form upload rec (txt + img) qd je suis log.
 import React, { useState } from 'react'
 import API from '../api'
 import { Link, useNavigate } from 'react-router-dom'
 
-export default function NewRecipe({ user }){
+export default function NouvelRecette({ user }){
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [ingredients, setIngredients] = useState('')
   const [steps, setSteps] = useState('')
   const [category, setCategory] = useState('')
+  const [imageFile, setImageFile] = useState(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -27,7 +28,16 @@ export default function NewRecipe({ user }){
     setError('')
     setLoading(true)
     try{
-      await API.post('recipes/', { title, description, ingredients, steps, category })
+      const formData = new FormData()
+      formData.append('title', title)
+      formData.append('description', description)
+      formData.append('ingredients', ingredients)
+      formData.append('steps', steps)
+      formData.append('category', category)
+      if (imageFile) {
+        formData.append('image', imageFile)
+      }
+      await API.post('recipes/', formData)
       navigate('/recipes')
     }catch(err){
       setError("La recette n'a pas pu être enregistrée.")
@@ -55,6 +65,13 @@ export default function NewRecipe({ user }){
 
         <label>Étapes</label>
         <textarea value={steps} onChange={e => setSteps(e.target.value)} />
+
+        <label>Image (facultatif)</label>
+        <input
+          type='file'
+          accept='image/*'
+          onChange={e => setImageFile(e.target.files?.[0] || null)}
+        />
 
         <button type='submit' disabled={loading}>
           {loading ? 'En cours…' : 'Publier'}

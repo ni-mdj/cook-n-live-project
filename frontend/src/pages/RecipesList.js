@@ -1,4 +1,4 @@
-// Note perso : liste toutes les recettes pour que je puisse les voir et en ajouter une si je suis connectée.
+// com : Je liste ttes les rec (avec filtres) et j'offre l'acces a l'ajout si log.
 import React, { useEffect, useState } from 'react'
 import API from '../api'
 import { Link } from 'react-router-dom'
@@ -65,10 +65,16 @@ export default function RecipesList({ user }) {
       <div className='recipe-list'>
         {recipes.map(recipe => (
           <div key={recipe.id} className='recipe-card'>
+            {recipe.image && (
+              <div className='recipe-card__thumb'>
+                <img src={recipe.image} alt={`Illustration de ${recipe.title}`} />
+              </div>
+            )}
             <h3>{recipe.title}</h3>
             <p className='recipe-author'>par {recipe.author?.username || 'anonyme'}</p>
             {recipe.category && <p className='small-text'>Catégorie : {recipe.category}</p>}
             {recipe.description && <p>{recipe.description}</p>}
+            <p className='small-text'>Likes : {recipe.likes}</p>
             <Link to={`/recipes/${recipe.id}`}>Voir la recette</Link>
           </div>
         ))}

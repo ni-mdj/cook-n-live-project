@@ -1,4 +1,4 @@
-// Note perso : page profil simple qui montre mes infos et mes recettes.
+// com : Je montre mon profil + rec perso pr suivre mes stats.
 import React, { useEffect, useState } from 'react'
 import API from '../api'
 import { Link } from 'react-router-dom'
@@ -43,6 +43,7 @@ export default function Profile({ user }) {
               <strong>{recipe.title}</strong>
               {recipe.category && ` (${recipe.category})`}
               {' — '}
+              {recipe.likes} like(s) —{' '}
               <Link to={`/recipes/${recipe.id}`}>ouvrir</Link>
             </li>
           ))}

@@ -1,4 +1,4 @@
-// Note perso : page de connexion toute simple qui envoie le pseudo/mot de passe au backend.
+// com : Je gere la connexion (usr/pwd -> back) de facon ultra simple.
 import React, { useState } from 'react'
 import API from '../api'
 import { Link } from 'react-router-dom'

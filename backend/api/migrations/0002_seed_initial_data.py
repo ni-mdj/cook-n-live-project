@@ -1,4 +1,4 @@
-# Note perso : migration qui insère l'utilisatrice Noémie, quelques recettes et un live démo.
+# com : Je seed qq data (user Noor, rec demo, live test) pr demarrer.
 from datetime import timedelta
 
 from django.contrib.auth.hashers import make_password
@@ -13,7 +13,7 @@ def seed_data(apps, schema_editor):
 
     chef, created = User.objects.get_or_create(
         username='chef_noor',
-        defaults={'email': 'noemie@cooknlive.test'}
+        defaults={'email': 'noor@cooknlive.test'}
     )
     if created or not getattr(chef, 'password', ''):
         chef.password = make_password('cookandlive')
@@ -171,3 +171,4 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(seed_data, unseed_data),
     ]
+

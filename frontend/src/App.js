@@ -1,4 +1,4 @@
-// Note perso : App gère les pages du site, la navigation et petit état utilisateur pour savoir si quelqu'un est connecté.
+// com : Je pilote la nav + pages et je garde l'etat usr pr savoir si qqn est log.
 import React, { useEffect, useState } from 'react'
 import { Link, Route, Routes, useNavigate } from 'react-router-dom'
 import Home from './pages/Home'
@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import RecipesList from './pages/RecipesList'
 import RecipeDetail from './pages/RecipeDetail'
-import NewRecipe from './pages/NewRecipe'
+import NouvelRecette from './pages/NouvelRecette'
 import Live from './pages/Live'
 import Profile from './pages/Profile'
 import { setAuthToken } from './api'
@@ -73,7 +73,7 @@ export default function App() {
           <Route path='/login' element={<Login onLogin={handleLogin} />} />
           <Route path='/register' element={<Register />} />
           <Route path='/recipes' element={<RecipesList user={user} />} />
-          <Route path='/recipes/new' element={<NewRecipe user={user} />} />
+          <Route path='/recipes/new' element={<NouvelRecette user={user} />} />
           <Route path='/recipes/:id' element={<RecipeDetail user={user} />} />
           <Route path='/live' element={<Live />} />
           <Route path='/profile' element={<Profile user={user} />} />
