@@ -1,4 +1,4 @@
-// com : Je presente rapidement moi meme Chef Noor ds une card cool.
+// com : Je me presente rapidementChef Noor ds une card cool.
 import React from 'react'
 
 export default function AboutCard() {
