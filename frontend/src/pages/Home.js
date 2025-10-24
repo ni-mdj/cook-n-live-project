@@ -39,7 +39,7 @@ export default function Home(){
         </div>
         <div className='hero-note'>
           <span></span>
-          <p>Astuces du Jour : prépare ton thé à la menthe et rejoins le chat pour poser toute tes questions en direct.</p>
+          <p>Astuces du Jour : prépare ton thé à la menthe et rejoins le chat pour poser toutes tes questions en direct.</p>
         </div>
       </section>
 
