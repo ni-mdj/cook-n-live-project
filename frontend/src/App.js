@@ -10,6 +10,7 @@ import NouvelRecette from './pages/NouvelRecette'
 import Live from './pages/Live'
 import Profile from './pages/Profile'
 import { setAuthToken } from './api'
+import ForgotPassword from './pages/ForgotPassword'
 
 export default function App() {
   const [user, setUser] = useState(null)
@@ -72,6 +73,7 @@ export default function App() {
           <Route path='/' element={<Home user={user} />} />
           <Route path='/login' element={<Login onLogin={handleLogin} />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/recipes' element={<RecipesList user={user} />} />
           <Route path='/recipes/new' element={<NouvelRecette user={user} />} />
           <Route path='/recipes/:id' element={<RecipeDetail user={user} />} />

@@ -45,6 +45,9 @@ export default function Login({ onLogin }) {
       <p className='small-text'>
         Pas encore de compte ? <Link to='/register'>Créer un compte</Link>
       </p>
+      <p className='small-text'>
+        Mot de passe oublié ? <Link to='/forgot-password'>Le réinitialiser ici</Link>
+      </p>
     </div>
   )
 }
