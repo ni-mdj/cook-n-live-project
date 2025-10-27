@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import API from '../api'
 import LiveEmbed from '../components/LiveEmbed'
 import AboutCard from '../components/AboutCard'
+import { getRecipeImage } from '../utils/recipeImages'
 
 export default function Home(){
   const [recipes, setRecipes] = useState([])
@@ -87,20 +88,21 @@ export default function Home(){
 
       <h2>Quelques recettes</h2>
       <div className='recipes-grid'>
-        {recipes.map(recipe => (
-          <div key={recipe.id} className='recipe-card'>
-            {recipe.image && (
+        {recipes.map(recipe => {
+          const imageUrl = getRecipeImage(recipe)
+          return (
+            <div key={recipe.id} className='recipe-card'>
               <div className='recipe-card__thumb'>
-                <img src={recipe.image} alt={`Illustration de ${recipe.title}`} />
+                <img src={imageUrl} alt={`Illustration de ${recipe.title}`} />
               </div>
-            )}
-            <h3>{recipe.title}</h3>
-            {recipe.category && <p className='small-text'>Catégorie : {recipe.category}</p>}
-            <p>{recipe.description || 'Sans description'}</p>
-            <p className='small-text'>{recipe.likes} like(s)</p>
-            <Link to={`/recipes/${recipe.id}`} className='small-button'>Voir la recette</Link>
-          </div>
-        ))}
+              <h3>{recipe.title}</h3>
+              {recipe.category && <p className='small-text'>Catégorie : {recipe.category}</p>}
+              <p>{recipe.description || 'Sans description'}</p>
+              <p className='small-text'>{recipe.likes} like(s)</p>
+              <Link to={`/recipes/${recipe.id}`} className='small-button'>Voir la recette</Link>
+            </div>
+          )
+        })}
       </div>
       <Link to='/recipes'>Voir toutes les recettes</Link>
     </div>

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import API from '../api'
+import { getRecipeImage } from '../utils/recipeImages'
 
 const splitSteps = (rawSteps) => {
   if (!rawSteps) return []
@@ -181,16 +182,16 @@ export default function RecipeDetail({ user }){
     }
   }
 
+  const recipeImage = getRecipeImage(recipe)
+
   return (
     <div className='simple-page'>
       {message && <p className='success'>{message}</p>}
+      <div className='recipe-detail__image'>
+        <img src={recipeImage} alt={`Illustration de ${recipe.title}`} />
+      </div>
       <h2>{recipe.title}</h2>
       <p className='small-text'>Par {recipe.author?.username || 'anonyme'}</p>
-      {recipe.image && (
-        <div className='recipe-detail__image'>
-          <img src={recipe.image} alt={`Illustration de ${recipe.title}`} />
-        </div>
-      )}
       {recipe.category && <p className='small-text'>Catégorie : {recipe.category}</p>}
       {recipe.description && <p>{recipe.description}</p>}
       <div className='like-box'>

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import API from '../api'
 import { Link } from 'react-router-dom'
+import { getRecipeImage } from '../utils/recipeImages'
 
 export default function RecipesList({ user }) {
   const [recipes, setRecipes] = useState([])
@@ -63,21 +64,22 @@ export default function RecipesList({ user }) {
       </label>
 
       <div className='recipe-list'>
-        {recipes.map(recipe => (
-          <div key={recipe.id} className='recipe-card'>
-            {recipe.image && (
+        {recipes.map(recipe => {
+          const imageUrl = getRecipeImage(recipe)
+          return (
+            <div key={recipe.id} className='recipe-card'>
               <div className='recipe-card__thumb'>
-                <img src={recipe.image} alt={`Illustration de ${recipe.title}`} />
+                <img src={imageUrl} alt={`Illustration de ${recipe.title}`} />
               </div>
-            )}
-            <h3>{recipe.title}</h3>
-            <p className='recipe-author'>par {recipe.author?.username || 'anonyme'}</p>
-            {recipe.category && <p className='small-text'>Catégorie : {recipe.category}</p>}
-            {recipe.description && <p>{recipe.description}</p>}
-            <p className='small-text'>Likes : {recipe.likes}</p>
-            <Link to={`/recipes/${recipe.id}`}>Voir la recette</Link>
-          </div>
-        ))}
+              <h3>{recipe.title}</h3>
+              <p className='recipe-author'>par {recipe.author?.username || 'anonyme'}</p>
+              {recipe.category && <p className='small-text'>Catégorie : {recipe.category}</p>}
+              {recipe.description && <p>{recipe.description}</p>}
+              <p className='small-text'>Likes : {recipe.likes}</p>
+              <Link to={`/recipes/${recipe.id}`}>Voir la recette</Link>
+            </div>
+          )
+        })}
       </div>
 
       {recipes.length === 0 && !error && (
