@@ -70,3 +70,30 @@ class LiveSessionSerializer(serializers.ModelSerializer):
         model = LiveSession
         fields = ('id', 'title', 'description', 'scheduled_at', 'twitch_channel', 'twitch_url', 'created_by', 'is_active')
         read_only_fields = ('created_by',)
+
+
+class PasswordResetSerializer(serializers.Serializer):
+    """Réinitialise le mot de passe via un identifiant (email ou pseudo)."""
+
+    identifier = serializers.CharField()
+    new_password = serializers.CharField(write_only=True, min_length=6)
+
+    def validate(self, attrs):
+        identifier = attrs.get('identifier', '').strip()
+        if not identifier:
+            raise serializers.ValidationError({'identifier': "L'identifiant est requis."})
+
+        user = None
+        try:
+            user = User.objects.get(email__iexact=identifier)
+        except User.DoesNotExist:
+            try:
+                user = User.objects.get(username__iexact=identifier)
+            except User.DoesNotExist:
+                user = None
+
+        if not user:
+            raise serializers.ValidationError({'identifier': "Aucun utilisateur trouvé avec cet identifiant."})
+
+        attrs['user'] = user
+        return attrs

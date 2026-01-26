@@ -1,7 +1,7 @@
 # com : cable ttes mes routes API (rec, com, live, auth).
 from rest_framework import routers
 from django.urls import path, include
-from .views import RecipeViewSet, CommentViewSet, LiveSessionViewSet, RegisterView
+from .views import RecipeViewSet, CommentViewSet, LiveSessionViewSet, RegisterView, PasswordResetView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = routers.DefaultRouter()
@@ -14,4 +14,5 @@ urlpatterns = [
     path('auth/register/', RegisterView.as_view(), name='register'),
     path('auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/password/reset/', PasswordResetView.as_view(), name='password_reset'),
 ]

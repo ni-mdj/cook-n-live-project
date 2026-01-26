@@ -114,15 +114,18 @@ def seed_data(apps, schema_editor):
     ]
 
     for recipe in recipes:
+        recipe_fields = {field.name for field in Recipe._meta.get_fields()}
+        defaults = {
+            'description': recipe['description'],
+            'ingredients': recipe['ingredients'],
+            'steps': recipe['steps'],
+            'author': chef,
+        }
+        if 'category' in recipe_fields:
+            defaults['category'] = recipe.get('category', '')
         Recipe.objects.get_or_create(
             title=recipe['title'],
-              defaults={
-                'description': recipe['description'],
-                'ingredients': recipe['ingredients'],
-                'steps': recipe['steps'],
-                'category': recipe.get('category', ''),
-                'author': chef,
-            }
+            defaults=defaults
         )
 
     now = timezone.now()
@@ -159,7 +162,7 @@ def unseed_data(apps, schema_editor):
     ]
     Recipe.objects.filter(title__in=titles).delete()
     LiveSession.objects.filter(title='Live du jeudi').delete()
-    User.objects.filter(username='chef_noemie').delete()
+    User.objects.filter(username='chef_noor').delete()
 
 
 class Migration(migrations.Migration):
@@ -171,4 +174,3 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(seed_data, unseed_data),
     ]
-
